@@ -1,46 +1,28 @@
-=== Skulpture ===
+## Welcome to the humble Skulpture-five (and six!) repository...
 
-*** About Skulpture ***
+### What is it all about
+This is a re-worked and partially updated code of the original Skulpture style 
+that was once developed by Christoph Feck. Specifically, this repo is a continuation of the
+[`skulpture-five`](https://github.com/cfeck/skulpture/tree/five) (a Qt5/KF5 port) branch from 2016.
 
-Skulpture is a GUI style addon for KDE programs.  It features a classical
-three-dimensional artwork with shadows and smooth gradients to enhance the
-visual experience.
+### What is available
+As of now, the following features are present:
+- an updated code base with fewer warnings during compilation
+- Qt5 support
+- Qt6 support
 
-Skulpture has been designed to be light and easy on eyes; many distracting
-borders or graphical elements have been removed or replaced by simpler
-artwork.
+### Dropped features
+Compared to the original Skulpture style for KDE4, this version lacks the following features:
+- no GUI for configuration tweaks (but `~/.config/SkulptureStyle.ini` is still supported)
+- obviously no Kwin decorator part
 
-You can set Skulpture as the KDE default style with the "System Settings"
-program.  Skulpture includes a style for applications, color schemes, and a
-theme for the KDE window manager.  For a matching Plasma style, install the
-Atelier theme.
+### Known issues
+- Right now you can experience weird indents and paddings in menus, lists etc.
 
-Skulpture can also be used with Qt programs.  To do so, use the command line
-option "-style Skulpture" when invoking the Qt program.  Additionally, you
-can set this style as the Qt default style with the "qtconfig" program.
-
-
-*** Version Information ***
-
-This is a snapshot version of Skulpture, released without updated release
-notes, bug list, or change summary.  See VERSION for the version number.
-
-To find out if a newer version of Skulpture is available, please visit the
-Skulpture homepage at http://skulpture.maxiom.de/
-
-
-*** Legal ***
-
-Skulpture is Copyright 2007-2010 Christoph Feck.  See AUTHORS for ways to
-contact him.
-
-Skulpture is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free
-Software Foundation; either version 3 of the License, or (at your option)
-any later version.
-
-Skulpture is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See COPYING for more details.
-
+### Motivation
+The purpose of this repo is to provide a working Qt6 port of Skulpture. Even though it's not pixel-perfect
+copy of its namesake for KDE4, it already provides great consistency between Qt5 and Qt6 apps. As the time goes by,
+more and more apps are getting ported to Qt6 (qBittorrent, Strawberry etc), so that we need one style to fit 'em all.
+Think of Skulpture as an alternative to Kvantum, which seems to be the only third-party style supporting both Qt5 and Qt6.
+Your contribution and improvement in the Skulpture style will be strongly welcomed and appreciated!
 
