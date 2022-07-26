@@ -1,0 +1,46 @@
+=== Skulpture ===
+
+*** About Skulpture ***
+
+Skulpture is a GUI style addon for KDE programs.  It features a classical
+three-dimensional artwork with shadows and smooth gradients to enhance the
+visual experience.
+
+Skulpture has been designed to be light and easy on eyes; many distracting
+borders or graphical elements have been removed or replaced by simpler
+artwork.
+
+You can set Skulpture as the KDE default style with the "System Settings"
+program.  Skulpture includes a style for applications, color schemes, and a
+theme for the KDE window manager.  For a matching Plasma style, install the
+Atelier theme.
+
+Skulpture can also be used with Qt programs.  To do so, use the command line
+option "-style Skulpture" when invoking the Qt program.  Additionally, you
+can set this style as the Qt default style with the "qtconfig" program.
+
+
+*** Version Information ***
+
+This is a snapshot version of Skulpture, released without updated release
+notes, bug list, or change summary.  See VERSION for the version number.
+
+To find out if a newer version of Skulpture is available, please visit the
+Skulpture homepage at http://skulpture.maxiom.de/
+
+
+*** Legal ***
+
+Skulpture is Copyright 2007-2010 Christoph Feck.  See AUTHORS for ways to
+contact him.
+
+Skulpture is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 3 of the License, or (at your option)
+any later version.
+
+Skulpture is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See COPYING for more details.
+
+

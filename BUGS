@@ -1,0 +1,25 @@
+=== Known Bugs ===
+
+While it is better to fix bugs instead of documenting them, this list still
+gives an overview of some quirks I am aware of.  If you think you found a
+bug not listed, please report it to: Christoph Feck <christoph@maxiom.de>
+
+
+*** Icon Sizes ***
+
+Skulpture does not respect the "Small" and "Dialog" (large) icon sizes from
+System Settings in KDE 4.4. Instead, they always depend on the font size.
+
+
+*** Message Box Icons ***
+
+Skulpture does not show icons in standard message boxes with Qt versions
+earlier than Qt 4.5.
+
+
+*** Style Sheets ***
+
+Skulpture currently only supports a limited set of styling options using Qt
+style sheets.  In particular, it only supports solid colors in the palette.
+
+

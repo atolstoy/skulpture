@@ -1,0 +1,257 @@
+New in 0.2.4:
+
+    Bugfixes:
+        * fixed possible crash when destroying MDI windows
+        * fixed possible crash when destroying menus
+        * fixed Tab key handling in Konversation
+        * fixed detection of default font (KDE 4.4)
+        * fixed menu item rectangle and input handler (Qt 4.6)
+        * fixed text rendering in vertical ProgressBar
+        * fixed frame in "east" TabWidget (Qt 4.6)
+        * fixed workaround for KIntNumInput size bug (KDE 4.4)
+        * fixed MDI window title placement with RTL layouts
+        * fixed ToolBar icon size to respect KDE setting (KDE 4.4)
+        * fixed single click mode to respect KDE setting (KDE 4.4)
+        * fixed vertical centering regressions (Qt 4.6.1)
+        * fixed vertical alignment of labels in FormLayout (Qt 4.6.2)
+        * fixed flashing of ScrollBar in PlacesPanel
+        * fixed widget flags in KWin window decoration client
+        * fixed menubar margin for improved full-screen usability
+        * fixed "Alternate Background" color in Skulpture color schemes
+        * fixed build warnings (KDE 4.3)
+        * fixed build failure with Qt 4.1
+
+
+New in 0.2.3:
+
+    Bugfixes:
+        * fixed ToolButton with menu (Qt 4.5)
+        * fixed detection of Dolphin InformationPanel (KDE 4.3)
+        * fixed rendering of transparent gradients (Qt 4.5)
+        * fixed black frame in KRunner LineEdit
+        * fixed MDI title shadow with raster graphics system (Qt 4.5.0 bug)
+        * fixed ButtonMargin pixel metric regression
+        * fixed menus not working after hovering menu titles
+        * fixed focus rendering on menu titles
+        * fixed corner buttons on document mode TabBar (Qt 4.5)
+        * fixed shortcut underlines in preview (KDE 4.3)
+        * fixed Esc key clearing preview window
+        * fixed corner buttons on "south" TabWidget (Konversation)
+        * fixed eliding of tabs in small TabBar
+        * fixed disabled ToolButton in inactive windows
+        * fixed "south" document mode tabs (Konsole 4.3)
+        * fixed Dial tickmarks (Qt 4.6)
+        * fixed right shadow on frameless spinbox
+        * fixed a few build warnings
+
+
+New in 0.2.2:
+
+    New Style Configuration Options:
+        * added option to change text cursor width (Qt 4.4)
+        * added option to change submenu delay
+        * added "KDE Style" to ScrollBar arrow placement options
+    New KWin Decoration Configuration Options:
+        * added option to change title bar height and symbol sizes
+        * added option to center title bar on full window width
+        * added option to configure pixel-exact border sizes
+    Bugfixes:
+        * fixed arrow placement configuration in non english locales
+        * fixed submenus appearing only when not moving the mouse (Qt bug)
+        * fixed cursor indication to follow mouse on hover in LineEdit
+        * fixed wrong color role on non-raised ToolButton/ToolBox labels
+        * fixed keyboard focus indicator for view items
+        * fixed double frame in KMail (KDE 4.2)
+        * fixed build with KDE 4.0
+
+
+New in 0.2.1:
+
+    New Style Configuration Options:
+        * added option to change TabBar size
+        * added option to change Slider and minimum ScrollBar length
+        * added option to change ScrollBar arrow placement
+        * added option to make PlacesPanel transparent
+    New KWin Decoration Configuration Options:
+        * added option to adjust vertical text shift
+        * added option to change horizontal text alignment
+        * added option to disable inactive frame coloring
+    Bugfixes:
+        * fixed possible crash when destroying TextEdit widgets
+        * fixed Slider to have the specified pixel size
+        * fixed large icons to only use standard sizes
+        * fixed KLineEdit's clear button not respecting font size
+        * fixed preview window to respect KDE UI standards
+        * fixed clipped text on ToolButton with text under icon
+        * fixed memory leak in ToolBar handle
+        * fixed hover feedback of icon in KWin window decoration client
+        * fixed tabs with icons (Qt 4.5)
+        * fixed user installation script to not fail when installing twice
+
+
+New in 0.2.0:
+
+    New Configuration Options (requires KDE 4):
+        * added option to respect "Disabled" colors from System Settings
+        * added option to adjust vertical text shift
+        * added option to change ScrollBar, Slider, and menu sizes
+        * added option to change widget margins and spacing
+        * added option to change password character
+        * added option to disable icon in KWin window decoration client
+    Visual Improvements:
+        * improved appearance of CheckBox, RadioButton, and ProgressBar
+        * implemented rendering of Qt 3 support elements
+        * implemented rendering of KMenu titles (KDE 4.1)
+        * unified appearance of SpinBox and ComboBox
+        * made small visual improvements to other elements
+    Bugfixes:
+        * fixed slow cursor movement in large TextEdit fields
+        * fixed hover feedback of selected CheckBox
+        * fixed CheckBox and RadioButton in dark color schemes
+        * fixed NoButtons/PlusMinus SpinBox button modes
+        * fixed ScrollBar slider covering both arrows at the same time
+        * fixed layout and rendering with non-zero global strut
+        * fixed tree expanders not respecting font size
+        * fixed frameless SpinBox and ComboBox
+        * fixed wrong usage of color roles in various places
+        * fixed missing icons in MenuBar
+        * fixed missing etching of disabled texts in menus
+        * fixed check indicators covering menu icons
+        * fixed missing separator texts in menus
+        * fixed frames and shadows in more widgets
+        * fixed HMTLView frame
+        * fixed wrong frame in ComboBox popup menu
+        * fixed missing shadow for views in menus
+        * fixed missing shadow in sunken ScrollArea
+        * fixed shadow in KColorSelector
+        * fixed Restore decoration button to not look identical to Maximize
+        * fixed vertical alignment of labels in FormLayout (Qt 4.4)
+        * fixed password character to fall back to ASCII symbol
+        * fixed LineEdit focus highlight in Arora (Qt 4 demo browser)
+        * fixed user installation script to find KDE4 on Kubuntu
+        * fixed build failure if KWin headers are not found
+        * fixed memory leak
+    Other Changes:
+        * improved support for custom Qt style sheets
+        * improved user installation script with build log file generation
+        * refactored code to only depend on QCommonStyle
+        * backported to Qt 4.2 for LSB 4.0 conformant systems
+        * added a Skulpture web log
+
+
+New in 0.1.3:
+
+	* fixed black background on transparent buttons
+	* fixed black background on LineEdit with certain style sheets
+	* some other small fixes and improvements:
+	* fixed title bar Help button to not depend on font shape
+	* fixed MDI window shadows to not expand outside of MDI area
+	* fixed title bar caption and buttons in vertical docks
+	* fixed Menu icon column without icons (Qt 4.5)
+	* improved arrows in MenuBar and ToolBar extender
+	* added support for ToolButton with menu arrow in vertical ToolBar
+	* improved ToolButton with menu arrow
+	* fixed rendering of vertical tabs
+	* improved scroll buttons in TabBar
+	* fixed TabWidget corner buttons (KTorrent)
+	* fixed wrong font on dragged item view header section
+	* removed dash pattern from selection rubberband
+	* fixed ScrollBar size to not depend on content font size
+
+
+New in 0.1.2:
+
+	* initial work on title bar decoration buttons (KWin, MDI, docks)
+	* fixed custom KWin button placement
+	* fixed crash in styled ItemView (Qt 4.4)
+	* some other small fixes and improvements:
+	* fixed size and disabled state for check indicators in MenuItem
+	* fixed menu stripe in RTL layouts
+	* improved size of submenu arrow
+	* added clipping of window caption
+	* added support for remaining KWin buttons (see NOTES)
+	* fixed MDI window title bar to use KWin colors (see NOTES)
+	* added mouse over highlight to flat PushButton
+	* fixed arrow position on menu PushButton
+	* implemented rendering of KLineEdit's clear button
+	* implemented rendering of ToolBox (Marble, Kalzium)
+	* implemented rendering of ToolBar handles
+	* fixed item highlight border on Table without grid
+	* initial work on color schemes (Skulpture in different flavors)
+
+
+New in 0.1.1:
+
+	* fixed missing check indicator in checked MenuItem with icon
+	* fixed initial green title bar in KWin decoration (again)
+	* some other small fixes and improvements:
+	* fixed TabWidget without tabs
+	* fixed shadow in editable ComboBox with icon
+	* fixed separator line in Dolphin information panel
+	* fixed MenuBar height in Konqueror
+	* removed frame from TabWidget corner buttons
+	* restored normal size of ComboBox in ToolBar
+
+
+New in 0.1.0:
+
+	* improved support for KDE color schemes
+	* added preview to configuration page (KDE4)
+	* added support for Qt 4.4.0
+	* many other small fixes and improvements:
+	* implemented rendering of dock titles
+	* implemented rendering of tree lines and expanders
+	* implemented rendering of resize grip
+	* implemented rendering of view item backgrounds (Qt 4.4)
+	* added button-like highlight of menu items
+	* added shadows to MDI windows
+	* added a slight shadow to Slider handles
+	* added automatic cursor size depending on font width
+	* added current line highlight to PlainTextEdit (Qt 4.4)
+	* added mouse over hightlight to clickable header sections
+	* fixed frames and shadows in more widgets
+	* fixed rendering of TabBar background in Konquerer
+	* fixed rendering of "south" tabs (Konsole, docks)
+	* fixed corner rendering in scroll areas
+	* fixed wrong palette on Qt 4.4
+	* fixed initial green title bar in KWin decoration (Qt 4.4)
+	* fixed background in KDE font selection preview
+	* improved some layouting values (ComboBox, MDI buttons)
+	* added RSS feed to Skulpture website
+
+
+New in 0.0.4:
+
+	* initial work on KWin window decoration client (KDE4)
+	* fixed rendering of Slider with tickmarks
+	* fixed bogus frames and shadows
+	* improved appearance of arrows
+	* some other small fixes and improvements
+
+
+New in 0.0.3:
+
+	* fixed margins of SpinBox and ComboBox on Qt 4.3.1
+	* improved rendering of Dial and TabBar
+	* some other small fixes and improvements
+	* renamed to Skulpture (old name: Skandale)
+
+
+New in 0.0.2:
+
+	* initial work on ComboBox, SpinBox, ScrollBar, and Slider
+	* initial work on Window (MDI), FocusFrame, and ToolButton
+	* made Dial useable
+	* fixed crash in TextEdit
+	* fixed rendering of wide PushButton and non-editable ComboBox
+
+
+New in 0.0.1:
+
+	* imagery for RadioButton and CheckBox
+	* more flat PushButton, with improved visual feedback
+	* improved HeaderView
+	* initial work on TabBar and Dial
+	* highlight current line in TextEdit (same as in LineEdit)
+
+

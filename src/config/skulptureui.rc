@@ -1,0 +1,9 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="skulpture" version="1">
+ <ToolBar name="mainToolBar">
+ </ToolBar>
+ <ToolBar noMerge="1" name="goToolBar"><text>Go ToolBar</text>
+  <Action name="go_back"/>
+  <Action name="go_forward"/>
+ </ToolBar>
+</kpartgui>
