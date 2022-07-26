@@ -41,14 +41,15 @@ cmake -DUSE_QT6=ON ..
 The style is available for use once there is the `skulpture.so` file in the Qt Plugins directory in the `styles` subdirectory.
 Eg., it is `/usr/lib64/qt5/plugins/styles/` for Qt5 version and `/usr/lib64/qt6/plugins/styles/skulpture.so` for Qt6
 in my system, though your setup may have different paths.
-If you're running Plasma5, you'll be able to find Skulpture under pedestrian Style settings in KDE's `systemsettings5`. For Qt6 apps you'll probably need
-to use [Qt6ct](https://github.com/trialuser02/qt6ct). Don't forget to cast `QT_QPA_PLATFORMTHEME=qt6ct` to make it work.
+
+If you're running Plasma5, you'll be then able to find Skulpture under pedestrian Style settings in KDE's `systemsettings5`. For Qt6 apps you'll probably need
+to use [Qt6ct](https://github.com/trialuser02/qt6ct). Don't forget to cast `export QT_QPA_PLATFORMTHEME=qt6ct` to make it work.
 
 ## Motivation
 First of all I should give my regards to [Michael Abaev](https://github.com/Lemontyash), a promising C++ coder who made the Qt6 port of Skulpture happen.
 As I'm not a programmer myself, my part was to inspire and convince him to do the job, then to make the work public and provide some documentation.
 
-The purpose of this repo is to provide a working Qt6 port of Skulpture. Even though it's not pixel-perfect
+The purpose of this repo is to provide a working Qt6 port of Skulpture. Even though it's not a pixel-perfect
 copy of its namesake for KDE4, it already provides great consistency between Qt5 and Qt6 apps. As the time goes by,
 more and more apps are getting ported to Qt6 (qBittorrent, Strawberry etc), so that we need one style to fit 'em all.
 Think of Skulpture as an alternative to Kvantum, which seems to be the only third-party style supporting both Qt5 and Qt6.
