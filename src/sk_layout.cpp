@@ -4,7 +4,7 @@
  */
 
 #include "skulpture_p.h"
-#include <QtCore/QSettings>
+#include <QSettings>
 #include <QFrame>
 #include <QApplication>
 #include <QShortcut>
@@ -12,6 +12,7 @@
 #include <QFormLayout>
 #include <QLabel>
 #include <QCheckBox>
+#include <QFontMetrics>
 
 QSize minSize = QSize(0,0);
 
@@ -19,10 +20,11 @@ QSize minSize = QSize(0,0);
 
 int SkulptureStyle::Private::verticalTextShift(const QFontMetrics &fontMetrics)
 {
-    if (fontMetrics.xHeight() == qApp->fontMetrics().xHeight()
-        && fontMetrics.ascent() == qApp->fontMetrics().ascent()
-        && fontMetrics.descent() == qApp->fontMetrics().descent()
-        && fontMetrics.leading() == qApp->fontMetrics().leading()) {
+    QFontMetrics qAppFontMetrics(QApplication::font());
+    if (fontMetrics.xHeight() == qAppFontMetrics.xHeight()
+        && fontMetrics.ascent() == qAppFontMetrics.ascent()
+        && fontMetrics.descent() == qAppFontMetrics.descent()
+        && fontMetrics.leading() == qAppFontMetrics.leading()) {
         return textShift;
     }
     return 0;
@@ -36,7 +38,7 @@ static QFontMetrics styledFontMetrics(const QStyleOption *option, const QWidget 
     } else if (widget) {
         return widget->fontMetrics();
     }
-    return qApp->fontMetrics();
+    return QFontMetrics(QApplication::font());
 }
 
 

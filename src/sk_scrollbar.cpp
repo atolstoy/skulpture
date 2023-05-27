@@ -4,9 +4,10 @@
  */
 
 #include "skulpture_p.h"
-#include <QtGui/QPainter>
-#include <QtWidgets/QAbstractScrollArea>
-#include <QtWidgets/QApplication>
+#include <QPainter>
+#include <QAbstractScrollArea>
+#include <QApplication>
+#include <QFontMetrics>
 #include <climits>
 
 
@@ -16,52 +17,52 @@ extern void paintScrollArrow(QPainter *painter, const QStyleOption *option, Qt::
 
 void paintScrollArea(QPainter *painter, const QStyleOption *option)
 {
-	QColor color = option->palette.color(QPalette::Disabled, QPalette::Window);
-	if (option->state & QStyle::State_Enabled || option->type != QStyleOption::SO_Slider) {
+    QColor color = option->palette.color(QPalette::Disabled, QPalette::Window);
+    if (option->state & QStyle::State_Enabled || option->type != QStyleOption::SO_Slider) {
 #if 0
-		if (option->state & QStyle::State_Sunken) {
-			color = color.lighter(107);
-		} else {
-			color = color.darker(107);
-		}
+        if (option->state & QStyle::State_Sunken) {
+            color = color.lighter(107);
+        } else {
+            color = color.darker(107);
+        }
 #elif 0
-		color = option->palette.color(QPalette::Base);
+        color = option->palette.color(QPalette::Base);
 #elif 1
-		if (option->state & QStyle::State_Sunken) {
-			color = color.darker(107);
-		} else {
-			// ###
-			if (false && option->state & QStyle::State_MouseOver) {
-				color = color.lighter(110);
-			} else {
-				color = color.lighter(107);
-			}
-		}
+        if (option->state & QStyle::State_Sunken) {
+            color = color.darker(107);
+        } else {
+            // ###
+            if (false && option->state & QStyle::State_MouseOver) {
+                color = color.lighter(110);
+            } else {
+                color = color.lighter(107);
+            }
+        }
 #endif
-	}
-	painter->fillRect(option->rect, color);
+    }
+    painter->fillRect(option->rect, color);
 //	painter->fillRect(option->rect, Qt::red);
 }
 
 
 void paintScrollAreaCorner(QPainter *painter, const QStyleOption *option, const QWidget *widget, const QStyle */*style*/)
 {
-	QStyleOption opt;
-	opt = *option;
-	opt.type = QStyleOption::SO_Default;
-	if (qobject_cast<const QAbstractScrollArea *>(widget)) {
+    QStyleOption opt;
+    opt = *option;
+    opt.type = QStyleOption::SO_Default;
+    if (qobject_cast<const QAbstractScrollArea *>(widget)) {
             // ### work around bug in Qt 4.5
             if (option->rect.y() + option->rect.height() > widget->rect().height()
              || option->rect.x() + option->rect.width() > widget->rect().width()) {
                 return;
             }
-		opt.type = QStyleOption::SO_Slider;
-		opt.state &= ~QStyle::State_Enabled;
-		if (widget->isEnabled()) {
-			opt.state |= QStyle::State_Enabled;
-		}
-	}
-	paintScrollArea(painter, &opt);
+        opt.type = QStyleOption::SO_Slider;
+        opt.state &= ~QStyle::State_Enabled;
+        if (widget->isEnabled()) {
+            opt.state |= QStyle::State_Enabled;
+        }
+    }
+    paintScrollArea(painter, &opt);
 }
 
 
@@ -81,27 +82,27 @@ void paintScrollBarPage(QPainter *painter, const QStyleOptionSlider *option)
 
 void paintScrollBarAddLine(QPainter *painter, const QStyleOptionSlider *option)
 {
-	paintScrollArea(painter, option);
+    paintScrollArea(painter, option);
 //	paintThinFrame(painter, option->rect, option->palette, -40, 120);
-	if (option->minimum != option->maximum) {
-		QStyleOptionSlider opt = *option;
-		opt.fontMetrics = QApplication::fontMetrics();
-                opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
-		paintScrollArrow(painter, &opt, option->orientation == Qt::Horizontal ? (option->direction == Qt::LeftToRight ? Qt::RightArrow : Qt::LeftArrow) : Qt::DownArrow, false);
-	}
+    if (option->minimum != option->maximum) {
+        QStyleOptionSlider opt = *option;
+        opt.fontMetrics = QFontMetrics(QApplication::font());
+        opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
+        paintScrollArrow(painter, &opt, option->orientation == Qt::Horizontal ? (option->direction == Qt::LeftToRight ? Qt::RightArrow : Qt::LeftArrow) : Qt::DownArrow, false);
+    }
 }
 
 
 void paintScrollBarSubLine(QPainter *painter, const QStyleOptionSlider *option)
 {
-	paintScrollArea(painter, option);
+    paintScrollArea(painter, option);
 //	paintThinFrame(painter, option->rect, option->palette, -40, 120);
-	if (option->minimum != option->maximum) {
-		QStyleOptionSlider opt = *option;
-		opt.fontMetrics = QApplication::fontMetrics();
-                opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
-                paintScrollArrow(painter, &opt, option->orientation == Qt::Horizontal ? (option->direction == Qt::LeftToRight ? Qt::LeftArrow : Qt::RightArrow) : Qt::UpArrow, false);
-	}
+    if (option->minimum != option->maximum) {
+        QStyleOptionSlider opt = *option;
+        opt.fontMetrics = QFontMetrics(QApplication::font());
+        opt.palette.setColor(QPalette::ButtonText, opt.palette.color(QPalette::WindowText));
+        paintScrollArrow(painter, &opt, option->orientation == Qt::Horizontal ? (option->direction == Qt::LeftToRight ? Qt::LeftArrow : Qt::RightArrow) : Qt::UpArrow, false);
+    }
 }
 
 
