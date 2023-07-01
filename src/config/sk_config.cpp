@@ -22,14 +22,13 @@
 #include "sk_config.h"
 #include <QtCore/QDir>
 #include <QtCore/QUuid>
-#include <QtGui/QMdiSubWindow>
+#include <QtWidgets/QMdiSubWindow>
 #include <QtGui/QCloseEvent>
-#include <QtGui/QStyleFactory>
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
+#include <QtWidgets/QStyleFactory>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
 #include <KDE/KAboutData>
 #include <KDE/KHelpMenu>
-#include <KDE/KMenuBar>
 #include <KDE/KComponentData>
 #include <KDE/KStandardDirs>
 #include <KDE/KStandardAction>
@@ -43,7 +42,7 @@
 
 /*-----------------------------------------------------------------------*/
 
-extern "C" KDE_EXPORT QWidget* allocate_kstyle_config(QWidget* parent)
+extern "C" Q_DECL_EXPORT QWidget* allocate_kstyle_config(QWidget* parent)
 {
 	return new SkulptureStyleConfig(parent);
 }
@@ -146,7 +145,8 @@ void Preview2Window::init(const KComponentData &componentData)
 	setWindowFlags(Qt::Widget);
 	setupUi(this);
         setHelpMenuEnabled(false);
-        setComponentData(componentData);
+        //setComponentData(componentData);
+        setComponentName(componentData.componentName(), componentData.componentName());
         for (uint i = 0; i < sizeof(standardAction) / sizeof(standardAction[0]); ++i) {
             if (standardAction[i] != KStandardAction::ActionNone) {
                 actionCollection()->addAction(standardAction[i]);

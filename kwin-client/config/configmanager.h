@@ -26,10 +26,10 @@
 /*-----------------------------------------------------------------------*/
 
 #include <KDE/KConfigGroup>
-#include <QtGui/QCheckBox>
-#include <QtGui/QSpinBox>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QRadioButton>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QRadioButton>
 
 class ConfigManager
 {

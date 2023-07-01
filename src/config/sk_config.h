@@ -25,7 +25,7 @@
 
 /*-----------------------------------------------------------------------*/
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QMdiArea>
 #include "ui_sk_dialog.h"
 #include "configmanager.h"
 
@@ -77,7 +77,7 @@ class SkulptureStyleConfig : public QWidget, private Ui::SkulptureStyleDialog
 
 /*-----------------------------------------------------------------------*/
 
-#include <QtGui/QStyle>
+#include <QtWidgets/QStyle>
 
 struct SkMethodData
 {

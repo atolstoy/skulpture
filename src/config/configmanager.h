@@ -26,12 +26,12 @@
 /*-----------------------------------------------------------------------*/
 
 #include <QtCore/QSettings>
-#include <QtGui/QCheckBox>
-#include <QtGui/QSpinBox>
-#include <QtGui/QDoubleSpinBox>
-#include <QtGui/QAbstractSlider>
-#include <QtGui/QLineEdit>
-#include <QtGui/QComboBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QAbstractSlider>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QComboBox>
 
 class ConfigManager
 {
@@ -47,7 +47,7 @@ class ConfigManager
     public:
         void addWidgets(QWidget *parent) {
             typedef QList<QWidget *> WidgetList;
-            WidgetList widgets = parent->findChildren<QWidget *>(QRegExp(QLatin1String("^cm_")));
+            WidgetList widgets = parent->findChildren<QWidget *>(QRegularExpression(QLatin1String("^cm_")));
             for (WidgetList::const_iterator i = widgets.constBegin(); i != widgets.constEnd(); ++i) {
                 QWidget *widget = *i;
                 if (widget->isEnabled()) {

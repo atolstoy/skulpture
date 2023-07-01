@@ -93,7 +93,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="KTabWidget" name="Text" >
+     <widget class="QTabWidget" name="Text" >
       <property name="currentIndex" >
        <number>0</number>
       </property>
@@ -418,11 +418,6 @@ p, li { white-space: pre-wrap; }
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header location="global" >KDE/KComboBox</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header location="global" >KDE/KTabWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>
