@@ -20,6 +20,7 @@
  */
 
 #include "sk_config.h"
+#include "configmanager.h"
 #include <QtCore/QDir>
 #include <QtCore/QUuid>
 #include <QtWidgets/QMdiSubWindow>
@@ -27,9 +28,9 @@
 #include <QtWidgets/QStyleFactory>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QMenuBar>
 #include <KDE/KAboutData>
-#include <KDE/KHelpMenu>
-#include <KDE/KComponentData>
+#include <KXmlGui/KHelpMenu>
 #include <KDE/KStandardDirs>
 #include <KDE/KStandardAction>
 #include <KDE/KStatusBar>
@@ -95,20 +96,20 @@ void Preview1Window::init()
 class Preview2Window : public KXmlGuiWindow, private Ui::SkulpturePreview2
 {
 	public:
-		explicit Preview2Window(QWidget *parent, const KComponentData &componentData);
+		explicit Preview2Window(QWidget *parent, const KAboutData &aboutData);
 
 	public:
 		virtual void closeEvent(QCloseEvent *e);
 
 	private:
-		void init(const KComponentData &componentData);
+		void init(const KAboutData &aboutData);
 };
 
 
-Preview2Window::Preview2Window(QWidget *parent, const KComponentData &componentData)
+Preview2Window::Preview2Window(QWidget *parent, const KAboutData &aboutData)
 	: KXmlGuiWindow(parent)
 {
-	init(componentData);
+	init(aboutData);
 }
 
 
@@ -140,13 +141,12 @@ static const KStandardAction::StandardAction standardAction[] = {
 };
 
 
-void Preview2Window::init(const KComponentData &componentData)
+void Preview2Window::init(const KAboutData &aboutData)
 {
 	setWindowFlags(Qt::Widget);
 	setupUi(this);
         setHelpMenuEnabled(false);
-        //setComponentData(componentData);
-        setComponentName(componentData.componentName(), componentData.componentName());
+        setComponentName(aboutData.componentName(), aboutData.componentName());
         for (uint i = 0; i < sizeof(standardAction) / sizeof(standardAction[0]); ++i) {
             if (standardAction[i] != KStandardAction::ActionNone) {
                 actionCollection()->addAction(standardAction[i]);
@@ -154,7 +154,7 @@ void Preview2Window::init(const KComponentData &componentData)
         }
         createGUI();
         //menuBar()->removeAction(menuBar()->actions().last());
-        KHelpMenu *helpMenu = new KHelpMenu(this, componentData.aboutData(), false);
+        KHelpMenu *helpMenu = new KHelpMenu(this, aboutData, false);
         menuBar()->addMenu((QMenu *) helpMenu->menu());
         statusBar()->setSizeGripEnabled(true);
         //setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -193,7 +193,7 @@ void SkulptureStyleConfig::updatePreview()
 			QString absFileName = tempDir.absoluteFilePath(fileName);
 			{
 				QSettings s(absFileName, QSettings::IniFormat);
-                                configManager.save(s);
+                                configManager->save(s);
 				// make visible in other process
 				s.sync();
 			}
@@ -257,16 +257,12 @@ enum PreviewPosition
 
 void SkulptureStyleConfig::init()
 {
-        aboutData = new KAboutData("skulpture", 0, ki18n("Sculpture"), "0.2.4",
-            ki18n("Three-dimensional classical artwork."),
-            KAboutData::License_GPL_V3,
-            ki18n("(c) 2007-2010, Christoph Feck"), KLocalizedString(),
+	configManager = new ConfigManager();
+        aboutData = new KAboutData("skulpture", "Sculpture", "0.2.4",
+            "Three-dimensional classical artwork.",
+            KAboutLicense::GPL_V3,
+            "(c) 2007-2010, Christoph Feck", "",
             "http://skulpture.maxiom.de/", "christoph@maxiom.de");
-        KComponentData tempComponentData(aboutData);
-        aboutData->addAuthor(ki18n("Christoph Feck"), ki18n("Developer"), "christoph@maxiom.de", "http://kdepepo.wordpress.com/");
-        QString imageFileName = KStandardDirs::locate("appdata", QLatin1String("pics/skulpture.png"), tempComponentData);
-        aboutData->setProgramLogo(QImage(imageFileName));
-        componentData = new KComponentData(aboutData);
 
 	KGlobal::locale()->insertCatalog(QLatin1String("kstyle_skulpture_config"));
 	setupUi(this);
@@ -352,8 +348,8 @@ void SkulptureStyleConfig::init()
 //	qDebug() << "activeBackground = " << c;
 	connect(this, SIGNAL(changed(bool)), this, SLOT(updatePreview()));
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(subWindowActivated(QMdiSubWindow *)));
-        configManager.addWidgets(this);
-        configManager.load(s);
+        configManager->addWidgets(this);
+        configManager->load(s);
 
         if (cm_General_TextShift->value() > 0) {
             cm_General_TextShift->setPrefix(QLatin1String("+"));
@@ -366,7 +362,7 @@ void SkulptureStyleConfig::init()
 //	previewwindow2->setObjectName(QLatin1String("SkulpturePreviewWindow"));
 //	previewwindow2->setProperty("sk_kwin_activeBackground",
 	previewwindow2->setStyle(QStyleFactory::create(QLatin1String("skulpture")));
-        previewWindow = new Preview2Window(previewwindow2, *componentData);
+        previewWindow = new Preview2Window(previewwindow2, *aboutData);
 	previewwindow2->setWidget(previewWindow);
 	previewwindow2->setGeometry(107, 7, 450, 265);
 #endif
@@ -384,7 +380,7 @@ void SkulptureStyleConfig::init()
 	mdiArea->hide();
 #endif
         KAcceleratorManager::manage(this);
-        configManager.connectConfigChanged(this, SLOT(updateChanged()));
+        configManager->connectConfigChanged(this, SLOT(updateChanged()));
 }
 
 
@@ -402,7 +398,7 @@ QSize SkulptureStyleConfig::sizeHint() const
 
 SkulptureStyleConfig::~SkulptureStyleConfig()
 {
-	KGlobal::locale()->removeCatalog(QLatin1String("kstyle_skulpture_config"));
+	//KGlobal::locale()->removeCatalog(QLatin1String("kstyle_skulpture_config"));
         if (previewWindow) {
             previewWindow->hide();
             previewWindow->setParent(0);
@@ -410,7 +406,7 @@ SkulptureStyleConfig::~SkulptureStyleConfig()
             delete previewWindow;
             KGlobal::setAllowQuit(true);
         }
-        delete componentData;
+        delete configManager;
         delete aboutData;
 }
 
@@ -420,13 +416,13 @@ SkulptureStyleConfig::~SkulptureStyleConfig()
 void SkulptureStyleConfig::save()
 {
     QSettings s(QSettings::IniFormat, QSettings::UserScope, QLatin1String("SkulptureStyle"), QLatin1String(""));
-    configManager.save(s);
+    configManager->save(s);
 }
 
 
 void SkulptureStyleConfig::defaults()
 {
-    configManager.defaults();
+    configManager->defaults();
 }
 
 
@@ -437,7 +433,7 @@ void SkulptureStyleConfig::updateChanged()
     } else {
         cm_General_TextShift->setPrefix(QString());
     }
-    Q_EMIT changed(configManager.hasChanged());
+    Q_EMIT changed(configManager->hasChanged());
 }
 
 

@@ -17,7 +17,7 @@ find_package(KF5 ${KF_MIN_VERSION} REQUIRED
 )
 
 #set (kstyle_skulpture_config_SOURCES sk_config.cpp sk_dialog.ui sk_preview1.ui sk_preview2.ui)
-set (kstyle_skulpture_config_SOURCES sk_config.cpp sk_dialog.ui)
+set (kstyle_skulpture_config_SOURCES sk_config.cpp sk_dialog.ui sk_preview1.ui sk_preview2.ui)
 
 add_library(kstyle_skulpture_config SHARED ${kstyle_skulpture_config_SOURCES})
 target_link_libraries(kstyle_skulpture_config
