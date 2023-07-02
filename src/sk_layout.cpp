@@ -208,7 +208,7 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_ToolBarExtensionExtent: return 12;
 
         case PM_SpinBoxSliderHeight: return 2;
-/*
+
         case PM_DefaultTopLevelMargin: {
             if (d->dialogMargins >= 0) {
                 return d->dialogMargins;
@@ -226,7 +226,7 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
                 return d->verticalSpacing;
             }
             return ((fontHeight(option, widget) * 3) >> 3);
-        }*/
+        }
 
         case PM_ToolBarIconSize:
             return QCommonStyle::pixelMetric(metric, option, widget);
@@ -280,11 +280,11 @@ int SkulptureStyle::pixelMetric(PixelMetric metric, const QStyleOption *option, 
         case PM_LayoutTopMargin:
         case PM_LayoutRightMargin:
         case PM_LayoutBottomMargin: {
-           /* PixelMetric metric = QStyle::PM_DefaultChildMargin;
+            PixelMetric metric = QStyle::PM_DefaultChildMargin;
             if ((option && (option->state & QStyle::State_Window)) || (widget && widget->isWindow())) {
                 metric = QStyle::PM_DefaultTopLevelMargin;
-            }*/
-            return 10;//pixelMetric(metric, option, widget);
+            }
+            return pixelMetric(metric, option, widget);
         }
 
         case PM_LayoutHorizontalSpacing:
