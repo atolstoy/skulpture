@@ -14,7 +14,6 @@ As of now, the following features are present:
 
 ## Dropped features
 Compared to the original Skulpture style for KDE4, this version lacks the following features:
-- no GUI for configuration tweaks (but `~/.config/SkulptureStyle.ini` is still supported)
 - obviously no Kwin decorator part
 
 ## Known issues
