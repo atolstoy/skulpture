@@ -10,8 +10,9 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 find_package(KF5 ${KF_MIN_VERSION} REQUIRED
     CoreAddons
     Completion
+    ConfigWidgets
     GuiAddons
-    KDELibs4Support
+    TextWidgets
     WidgetsAddons
     XmlGui
 )
@@ -27,8 +28,9 @@ target_link_libraries(kstyle_skulpture_config
     Qt${QT_VERSION_MAJOR}::Widgets
     KF5::CoreAddons
     KF5::Completion
+    KF5::ConfigWidgets
     KF5::GuiAddons
-    KF5::KDELibs4Support
+    KF5::TextWidgets
     KF5::WidgetsAddons
     KF5::XmlGui
 )

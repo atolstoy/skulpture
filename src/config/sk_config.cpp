@@ -23,22 +23,19 @@
 #include "configmanager.h"
 #include <QtCore/QDir>
 #include <QtCore/QUuid>
-#include <QtWidgets/QMdiSubWindow>
 #include <QtGui/QCloseEvent>
-#include <QtWidgets/QStyleFactory>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QMdiSubWindow>
 #include <QtWidgets/QMenuBar>
-#include <KDE/KAboutData>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QStyleFactory>
+#include <KConfigCore/KConfig>
+#include <KConfigWidgets/KStandardAction>
+#include <KCoreAddons/KAboutData>
+#include <KWidgetsAddons/KAcceleratorManager>
+#include <KXmlGui/KActionCollection>
 #include <KXmlGui/KHelpMenu>
-#include <KDE/KStandardDirs>
-#include <KDE/KStandardAction>
-#include <KDE/KStatusBar>
-#include <KDE/KActionCollection>
-#include <KDE/KGlobal>
-#include <KDE/KLocale>
-#include <KDE/KIcon>
-#include <KDE/KAcceleratorManager>
 
 
 /*-----------------------------------------------------------------------*/
@@ -264,7 +261,6 @@ void SkulptureStyleConfig::init()
             "(c) 2007-2010, Christoph Feck", "",
             "http://skulpture.maxiom.de/", "christoph@maxiom.de");
 
-	KGlobal::locale()->insertCatalog(QLatin1String("kstyle_skulpture_config"));
 	setupUi(this);
         QList<QWidget *> children = tabWidget->findChildren<QWidget *>();
         Q_FOREACH (QWidget *child, children) {
@@ -400,13 +396,10 @@ QSize SkulptureStyleConfig::sizeHint() const
 
 SkulptureStyleConfig::~SkulptureStyleConfig()
 {
-	//KGlobal::locale()->removeCatalog(QLatin1String("kstyle_skulpture_config"));
         if (previewWindow) {
             previewWindow->hide();
             previewWindow->setParent(0);
-            KGlobal::setAllowQuit(false);
-            delete previewWindow;
-            KGlobal::setAllowQuit(true);
+            previewWindow->deleteLater();
         }
         delete configManager;
         delete aboutData;

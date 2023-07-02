@@ -928,7 +928,7 @@
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header location="global">KComboBox</header>
+   <header location="global">KCompletion/KComboBox</header>
   </customwidget>
  </customwidgets>
  <resources/>
