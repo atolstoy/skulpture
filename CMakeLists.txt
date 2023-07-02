@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 project(skulpture)
 
 option(USE_QT6 "Use Qt6 instead of Qt5" OFF)
+option(USE_GUI_CONFIG "Build GUI configuration tool" ON)
 
 if (USE_QT6)
     set(QT_MIN_VERSION "6.2.0")
