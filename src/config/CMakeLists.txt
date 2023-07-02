@@ -17,10 +17,13 @@ find_package(KF5 ${KF_MIN_VERSION} REQUIRED
     XmlGui
 )
 
-#set (kstyle_skulpture_config_SOURCES sk_config.cpp sk_dialog.ui sk_preview1.ui sk_preview2.ui)
+include(KDEInstallDirs)
+
 set (kstyle_skulpture_config_SOURCES sk_config.cpp sk_dialog.ui sk_preview1.ui sk_preview2.ui)
 
 add_library(kstyle_skulpture_config MODULE ${kstyle_skulpture_config_SOURCES})
+set_target_properties(kstyle_skulpture_config PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}" OUTPUT_NAME "kstyle_skulpture_config")
+set_target_properties(kstyle_skulpture_config PROPERTIES PREFIX "")
 
 target_link_libraries(kstyle_skulpture_config
     Qt${QT_VERSION_MAJOR}::Core
@@ -36,8 +39,4 @@ target_link_libraries(kstyle_skulpture_config
 )
 
 install(TARGETS kstyle_skulpture_config DESTINATION ${QT_PLUGINS_DIR})
-#install( FILES skulptureui.rc DESTINATION ${DATA_INSTALL_DIR}/skulpture)
-#add_executable(kstyle_skulpture_config_tool ${kstyle_skulpture_config_SOURCES})
-#install (FILES skulpture.png DESTINATION ${DATA_INSTALL_DIR}/skulpture/pics)
-#install( FILES skulptureui.rc DESTINATION ${DATA_INSTALL_DIR}/skulpture)
-#install (TARGETS kstyle_skulpture_config DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES skulptureui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/skulpture)
