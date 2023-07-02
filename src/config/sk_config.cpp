@@ -358,7 +358,7 @@ void SkulptureStyleConfig::init()
         }
 #if 1
 #if 1
-	QMdiSubWindow *previewwindow2 = new QMdiSubWindow(mdiArea);
+	QMdiSubWindow *previewwindow2 = new QMdiSubWindow;
 //	previewwindow2->setObjectName(QLatin1String("SkulpturePreviewWindow"));
 //	previewwindow2->setProperty("sk_kwin_activeBackground",
 	previewwindow2->setStyle(QStyleFactory::create(QLatin1String("skulpture")));
@@ -367,7 +367,7 @@ void SkulptureStyleConfig::init()
 	previewwindow2->setGeometry(107, 7, 450, 265);
 #endif
 #if 1
-	QMdiSubWindow *previewwindow1 = new QMdiSubWindow(mdiArea);
+	QMdiSubWindow *previewwindow1 = new QMdiSubWindow;
 //	previewwindow1->setObjectName(QLatin1String("SkulpturePreviewWindow"));
 	previewwindow1->setStyle(QStyleFactory::create(QLatin1String("skulpture")));
         Preview1Window *preview = new Preview1Window(previewwindow1);
@@ -379,6 +379,8 @@ void SkulptureStyleConfig::init()
 #else
 	mdiArea->hide();
 #endif
+	mdiArea->addSubWindow(previewwindow2);
+	mdiArea->addSubWindow(previewwindow1);
         KAcceleratorManager::manage(this);
         configManager->connectConfigChanged(this, SLOT(updateChanged()));
 }
