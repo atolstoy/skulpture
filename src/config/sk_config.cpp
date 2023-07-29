@@ -177,6 +177,7 @@ void SkulptureStyleConfig::subWindowActivated(QMdiSubWindow *window)
 }
 
 
+
 void SkulptureStyleConfig::updatePreview()
 {
 	QStyle *style = QStyleFactory::create(QLatin1String("skulpture"));
@@ -437,7 +438,3 @@ void SkulptureStyleConfig::updateChanged()
 
 
 /*-----------------------------------------------------------------------*/
-
-#include "sk_config.moc"
-
-
