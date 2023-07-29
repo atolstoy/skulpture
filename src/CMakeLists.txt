@@ -62,4 +62,3 @@ endif()
 
 
 install(TARGETS ${LIBRARY_NAME} DESTINATION "${QT_PLUGINS_DIR}/styles")
-

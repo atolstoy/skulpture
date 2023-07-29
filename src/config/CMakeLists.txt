@@ -40,3 +40,4 @@ target_link_libraries(kstyle_skulpture_config
 
 install(TARGETS kstyle_skulpture_config DESTINATION ${QT_PLUGINS_DIR})
 install(FILES skulptureui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/skulpture)
+install(FILES ../skulpture.themerc DESTINATION ${KDE_INSTALL_DATADIR}/kstyle/themes)
