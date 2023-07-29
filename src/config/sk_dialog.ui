@@ -14,7 +14,7 @@
     </widget>
    </item>
    <item>
-    <widget class="KTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -926,15 +926,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header location="global">KDE/KTabWidget</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header location="global">KDE/KComboBox</header>
+   <header location="global">KCompletion/KComboBox</header>
   </customwidget>
  </customwidgets>
  <resources/>

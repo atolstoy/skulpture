@@ -20,30 +20,27 @@
  */
 
 #include "sk_config.h"
+#include "configmanager.h"
 #include <QtCore/QDir>
 #include <QtCore/QUuid>
-#include <QtGui/QMdiSubWindow>
 #include <QtGui/QCloseEvent>
-#include <QtGui/QStyleFactory>
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
-#include <KDE/KAboutData>
-#include <KDE/KHelpMenu>
-#include <KDE/KMenuBar>
-#include <KDE/KComponentData>
-#include <KDE/KStandardDirs>
-#include <KDE/KStandardAction>
-#include <KDE/KStatusBar>
-#include <KDE/KActionCollection>
-#include <KDE/KGlobal>
-#include <KDE/KLocale>
-#include <KDE/KIcon>
-#include <KDE/KAcceleratorManager>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QMdiSubWindow>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QStyleFactory>
+#include <KConfigCore/KConfig>
+#include <KConfigWidgets/KStandardAction>
+#include <KCoreAddons/KAboutData>
+#include <KWidgetsAddons/KAcceleratorManager>
+#include <KXmlGui/KActionCollection>
+#include <KXmlGui/KHelpMenu>
 
 
 /*-----------------------------------------------------------------------*/
 
-extern "C" KDE_EXPORT QWidget* allocate_kstyle_config(QWidget* parent)
+extern "C" Q_DECL_EXPORT QWidget* allocate_kstyle_config(QWidget* parent)
 {
 	return new SkulptureStyleConfig(parent);
 }
@@ -96,20 +93,20 @@ void Preview1Window::init()
 class Preview2Window : public KXmlGuiWindow, private Ui::SkulpturePreview2
 {
 	public:
-		explicit Preview2Window(QWidget *parent, const KComponentData &componentData);
+		explicit Preview2Window(QWidget *parent, const KAboutData &aboutData);
 
 	public:
 		virtual void closeEvent(QCloseEvent *e);
 
 	private:
-		void init(const KComponentData &componentData);
+		void init(const KAboutData &aboutData);
 };
 
 
-Preview2Window::Preview2Window(QWidget *parent, const KComponentData &componentData)
+Preview2Window::Preview2Window(QWidget *parent, const KAboutData &aboutData)
 	: KXmlGuiWindow(parent)
 {
-	init(componentData);
+	init(aboutData);
 }
 
 
@@ -141,12 +138,12 @@ static const KStandardAction::StandardAction standardAction[] = {
 };
 
 
-void Preview2Window::init(const KComponentData &componentData)
+void Preview2Window::init(const KAboutData &aboutData)
 {
 	setWindowFlags(Qt::Widget);
 	setupUi(this);
         setHelpMenuEnabled(false);
-        setComponentData(componentData);
+        setComponentName(aboutData.componentName(), aboutData.componentName());
         for (uint i = 0; i < sizeof(standardAction) / sizeof(standardAction[0]); ++i) {
             if (standardAction[i] != KStandardAction::ActionNone) {
                 actionCollection()->addAction(standardAction[i]);
@@ -154,7 +151,7 @@ void Preview2Window::init(const KComponentData &componentData)
         }
         createGUI();
         //menuBar()->removeAction(menuBar()->actions().last());
-        KHelpMenu *helpMenu = new KHelpMenu(this, componentData.aboutData(), false);
+        KHelpMenu *helpMenu = new KHelpMenu(this, aboutData, false);
         menuBar()->addMenu((QMenu *) helpMenu->menu());
         statusBar()->setSizeGripEnabled(true);
         //setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -180,6 +177,7 @@ void SkulptureStyleConfig::subWindowActivated(QMdiSubWindow *window)
 }
 
 
+
 void SkulptureStyleConfig::updatePreview()
 {
 	QStyle *style = QStyleFactory::create(QLatin1String("skulpture"));
@@ -193,7 +191,7 @@ void SkulptureStyleConfig::updatePreview()
 			QString absFileName = tempDir.absoluteFilePath(fileName);
 			{
 				QSettings s(absFileName, QSettings::IniFormat);
-                                configManager.save(s);
+				configManager->save(s);
 				// make visible in other process
 				s.sync();
 			}
@@ -209,8 +207,12 @@ void SkulptureStyleConfig::updatePreview()
 
 			tempDir.remove(fileName);
 
-                        int margin = style->pixelMetric(QStyle::PM_DefaultTopLevelMargin);
-                        dialogLayout->setContentsMargins(margin, margin, margin, margin);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+			int margin = style->pixelMetric(QStyle::PM_LayoutLeftMargin, nullptr, this->window());
+#else
+			int margin = style->pixelMetric(QStyle::PM_DefaultTopLevelMargin);
+#endif
+			dialogLayout->setContentsMargins(margin, margin, margin, margin);
 			QList<QMdiSubWindow *> windows = mdiArea->findChildren<QMdiSubWindow *>();
             Q_FOREACH (QMdiSubWindow *window, windows) {
                                 window->setFocusPolicy(Qt::FocusPolicy(window->focusPolicy() & ~Qt::TabFocus));
@@ -257,18 +259,13 @@ enum PreviewPosition
 
 void SkulptureStyleConfig::init()
 {
-        aboutData = new KAboutData("skulpture", 0, ki18n("Sculpture"), "0.2.4",
-            ki18n("Three-dimensional classical artwork."),
-            KAboutData::License_GPL_V3,
-            ki18n("(c) 2007-2010, Christoph Feck"), KLocalizedString(),
+	configManager = new ConfigManager();
+        aboutData = new KAboutData("skulpture", "Sculpture", "0.2.4",
+            "Three-dimensional classical artwork.",
+            KAboutLicense::GPL_V3,
+            "(c) 2007-2010, Christoph Feck", "",
             "http://skulpture.maxiom.de/", "christoph@maxiom.de");
-        KComponentData tempComponentData(aboutData);
-        aboutData->addAuthor(ki18n("Christoph Feck"), ki18n("Developer"), "christoph@maxiom.de", "http://kdepepo.wordpress.com/");
-        QString imageFileName = KStandardDirs::locate("appdata", QLatin1String("pics/skulpture.png"), tempComponentData);
-        aboutData->setProgramLogo(QImage(imageFileName));
-        componentData = new KComponentData(aboutData);
 
-	KGlobal::locale()->insertCatalog(QLatin1String("kstyle_skulpture_config"));
 	setupUi(this);
         QList<QWidget *> children = tabWidget->findChildren<QWidget *>();
         Q_FOREACH (QWidget *child, children) {
@@ -352,8 +349,8 @@ void SkulptureStyleConfig::init()
 //	qDebug() << "activeBackground = " << c;
 	connect(this, SIGNAL(changed(bool)), this, SLOT(updatePreview()));
 	connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(subWindowActivated(QMdiSubWindow *)));
-        configManager.addWidgets(this);
-        configManager.load(s);
+        configManager->addWidgets(this);
+        configManager->load(s);
 
         if (cm_General_TextShift->value() > 0) {
             cm_General_TextShift->setPrefix(QLatin1String("+"));
@@ -362,16 +359,16 @@ void SkulptureStyleConfig::init()
         }
 #if 1
 #if 1
-	QMdiSubWindow *previewwindow2 = new QMdiSubWindow(mdiArea);
+	QMdiSubWindow *previewwindow2 = new QMdiSubWindow;
 //	previewwindow2->setObjectName(QLatin1String("SkulpturePreviewWindow"));
 //	previewwindow2->setProperty("sk_kwin_activeBackground",
 	previewwindow2->setStyle(QStyleFactory::create(QLatin1String("skulpture")));
-        previewWindow = new Preview2Window(previewwindow2, *componentData);
+        previewWindow = new Preview2Window(previewwindow2, *aboutData);
 	previewwindow2->setWidget(previewWindow);
 	previewwindow2->setGeometry(107, 7, 450, 265);
 #endif
 #if 1
-	QMdiSubWindow *previewwindow1 = new QMdiSubWindow(mdiArea);
+	QMdiSubWindow *previewwindow1 = new QMdiSubWindow;
 //	previewwindow1->setObjectName(QLatin1String("SkulpturePreviewWindow"));
 	previewwindow1->setStyle(QStyleFactory::create(QLatin1String("skulpture")));
         Preview1Window *preview = new Preview1Window(previewwindow1);
@@ -383,8 +380,10 @@ void SkulptureStyleConfig::init()
 #else
 	mdiArea->hide();
 #endif
+	mdiArea->addSubWindow(previewwindow2);
+	mdiArea->addSubWindow(previewwindow1);
         KAcceleratorManager::manage(this);
-        configManager.connectConfigChanged(this, SLOT(updateChanged()));
+        configManager->connectConfigChanged(this, SLOT(updateChanged()));
 }
 
 
@@ -402,15 +401,12 @@ QSize SkulptureStyleConfig::sizeHint() const
 
 SkulptureStyleConfig::~SkulptureStyleConfig()
 {
-	KGlobal::locale()->removeCatalog(QLatin1String("kstyle_skulpture_config"));
         if (previewWindow) {
             previewWindow->hide();
             previewWindow->setParent(0);
-            KGlobal::setAllowQuit(false);
-            delete previewWindow;
-            KGlobal::setAllowQuit(true);
+            previewWindow->deleteLater();
         }
-        delete componentData;
+        delete configManager;
         delete aboutData;
 }
 
@@ -420,13 +416,13 @@ SkulptureStyleConfig::~SkulptureStyleConfig()
 void SkulptureStyleConfig::save()
 {
     QSettings s(QSettings::IniFormat, QSettings::UserScope, QLatin1String("SkulptureStyle"), QLatin1String(""));
-    configManager.save(s);
+    configManager->save(s);
 }
 
 
 void SkulptureStyleConfig::defaults()
 {
-    configManager.defaults();
+    configManager->defaults();
 }
 
 
@@ -437,12 +433,8 @@ void SkulptureStyleConfig::updateChanged()
     } else {
         cm_General_TextShift->setPrefix(QString());
     }
-    Q_EMIT changed(configManager.hasChanged());
+    Q_EMIT changed(configManager->hasChanged());
 }
 
 
 /*-----------------------------------------------------------------------*/
-
-#include "sk_config.moc"
-
-

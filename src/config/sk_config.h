@@ -25,15 +25,14 @@
 
 /*-----------------------------------------------------------------------*/
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QMdiArea>
 #include "ui_sk_dialog.h"
-#include "configmanager.h"
 
 class QSettings;
 class QMdiSubWindow;
 class KXmlGuiWindow;
 class KAboutData;
-class KComponentData;
+class ConfigManager;
 
 class SkulptureStyleConfig : public QWidget, private Ui::SkulptureStyleDialog
 {
@@ -66,18 +65,17 @@ class SkulptureStyleConfig : public QWidget, private Ui::SkulptureStyleDialog
 		void init();
 
 	private:
-            ConfigManager configManager;
+            ConfigManager *configManager;
             QLayout *dialogLayout;
             KXmlGuiWindow *previewWindow;
             KAboutData *aboutData;
-            KComponentData *componentData;
             QStyle *oldStyle;
 };
 
 
 /*-----------------------------------------------------------------------*/
 
-#include <QtGui/QStyle>
+#include <QtWidgets/QStyle>
 
 struct SkMethodData
 {

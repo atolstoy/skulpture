@@ -56,7 +56,9 @@ if (NOT APPLE AND NOT WIN32)
         PREFIX "")
 endif()
 
-add_subdirectory(config)
+if (USE_GUI_CONFIG)
+    add_subdirectory(config)
+endif()
+
 
 install(TARGETS ${LIBRARY_NAME} DESTINATION "${QT_PLUGINS_DIR}/styles")
-

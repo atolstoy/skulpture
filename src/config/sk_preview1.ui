@@ -93,7 +93,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="KTabWidget" name="Text" >
+     <widget class="QTabWidget" name="Text" >
       <property name="currentIndex" >
        <number>0</number>
       </property>
@@ -117,7 +117,7 @@
             <property name="text" >
              <string>Text Line Edit</string>
             </property>
-            <property name="clickMessage" >
+            <property name="placeholderText" >
              <string>LineEdit (empty)</string>
             </property>
             <property name="showClearButton" stdset="0" >
@@ -407,22 +407,17 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
-   <header location="global" >KDE/KLineEdit</header>
+   <header location="global" >KCompletion/KLineEdit</header>
   </customwidget>
   <customwidget>
    <class>KTextEdit</class>
    <extends>QTextEdit</extends>
-   <header location="global" >KDE/KTextEdit</header>
+   <header location="global" >KTextWidgets/KTextEdit</header>
   </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
-   <header location="global" >KDE/KComboBox</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header location="global" >KDE/KTabWidget</header>
+   <header location="global" >KCompletion/KComboBox</header>
   </customwidget>
  </customwidgets>
  <resources/>

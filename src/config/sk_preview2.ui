@@ -43,7 +43,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>KXmlGuiWindow</class>
    <extends>QMainWindow</extends>
-   <header location="global" >KDE/KXmlGuiWindow</header>
+   <header location="global" >KXmlGui/KXmlGuiWindow</header>
   </customwidget>
  </customwidgets>
  <connections/>
