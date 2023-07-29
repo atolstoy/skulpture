@@ -190,7 +190,7 @@ void SkulptureStyleConfig::updatePreview()
 			QString absFileName = tempDir.absoluteFilePath(fileName);
 			{
 				QSettings s(absFileName, QSettings::IniFormat);
-                                configManager->save(s);
+				configManager->save(s);
 				// make visible in other process
 				s.sync();
 			}
@@ -206,8 +206,12 @@ void SkulptureStyleConfig::updatePreview()
 
 			tempDir.remove(fileName);
 
-                        int margin = style->pixelMetric(QStyle::PM_DefaultTopLevelMargin);
-                        dialogLayout->setContentsMargins(margin, margin, margin, margin);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+			int margin = style->pixelMetric(QStyle::PM_LayoutLeftMargin, nullptr, this->window());
+#else
+			int margin = style->pixelMetric(QStyle::PM_DefaultTopLevelMargin);
+#endif
+			dialogLayout->setContentsMargins(margin, margin, margin, margin);
 			QList<QMdiSubWindow *> windows = mdiArea->findChildren<QMdiSubWindow *>();
             Q_FOREACH (QMdiSubWindow *window, windows) {
                                 window->setFocusPolicy(Qt::FocusPolicy(window->focusPolicy() & ~Qt::TabFocus));
