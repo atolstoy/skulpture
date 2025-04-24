@@ -7,7 +7,7 @@ set(KF_MIN_VERSION "5.103.0")
 find_package(ECM ${KF_MIN_VERSION} REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
-find_package(KF5 ${KF_MIN_VERSION} REQUIRED
+find_package(KF${QT_VERSION_MAJOR} ${KF_MIN_VERSION} REQUIRED
     CoreAddons
     Completion
     ConfigWidgets
@@ -29,13 +29,13 @@ target_link_libraries(kstyle_skulpture_config
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
-    KF5::CoreAddons
-    KF5::Completion
-    KF5::ConfigWidgets
-    KF5::GuiAddons
-    KF5::TextWidgets
-    KF5::WidgetsAddons
-    KF5::XmlGui
+    KF${QT_VERSION_MAJOR}::CoreAddons
+    KF${QT_VERSION_MAJOR}::Completion
+    KF${QT_VERSION_MAJOR}::ConfigWidgets
+    KF${QT_VERSION_MAJOR}::GuiAddons
+    KF${QT_VERSION_MAJOR}::TextWidgets
+    KF${QT_VERSION_MAJOR}::WidgetsAddons
+    KF${QT_VERSION_MAJOR}::XmlGui
 )
 
 install(TARGETS kstyle_skulpture_config DESTINATION ${QT_PLUGINS_DIR})

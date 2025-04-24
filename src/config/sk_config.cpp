@@ -25,17 +25,17 @@
 #include <QtCore/QUuid>
 #include <QtGui/QCloseEvent>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
+#include <QtGui/QScreen>
 #include <QtWidgets/QMdiSubWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QStyleFactory>
-#include <KConfigCore/KConfig>
-#include <KConfigWidgets/KStandardAction>
-#include <KCoreAddons/KAboutData>
-#include <KWidgetsAddons/KAcceleratorManager>
-#include <KXmlGui/KActionCollection>
-#include <KXmlGui/KHelpMenu>
+#include <KConfig>
+#include <KStandardAction>
+#include <KAboutData>
+#include <KAcceleratorManager>
+#include <KActionCollection>
+#include <KHelpMenu>
 
 
 /*-----------------------------------------------------------------------*/
@@ -273,7 +273,7 @@ void SkulptureStyleConfig::init()
                 child->hide();
             }
         }
-        QSize availableSize = QApplication::desktop()->availableGeometry(this).size();
+        QSize availableSize = QApplication::screens().at(QApplication::screens().indexOf(QApplication::screenAt(this->mapToGlobal(QPoint(0, 0)))))->availableGeometry().size();
         QSettings s(QSettings::IniFormat, QSettings::UserScope, QLatin1String("SkulptureStyle"), QLatin1String(""));
         QString previewPositionText = s.value(QLatin1String("ConfigDialog/PreviewPosition"), QLatin1String("auto")).toString().toLower();
         PreviewPosition previewPosition = PP_Auto;
